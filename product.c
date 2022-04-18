@@ -9,7 +9,6 @@ int selectMenu(){
     printf("3. Update Product\n");
     printf("4. Delete Product\n");
     printf("5. Save Data\n");
-    printf("6. Load Data\n");
     printf("0. End\n\n");
     printf("=> Select? ");
     scanf("%d", &menu);
@@ -80,7 +79,6 @@ void saveData(Product *p, int count){
     FILE *fp;
     fp = fopen("product.txt","wt");
 
-
     for (int i = 0; i <count; i++){
         if(p[i].price == -1) continue;
         printf("Name: %s\n",p[i].p_name);
@@ -93,5 +91,18 @@ void saveData(Product *p, int count){
     printf("=> 저장됨! ");
 }
 int loadData(Product *p){
-
+    int count = 0, i = 0;
+    FILE *fp;
+    fp = fopen("product.txt","rt");
+    for(; i< 100; i++){
+        fscanf(fp,"%s",p[i].p_name);
+        if(feof(fp)) break;
+        fscanf(fp,"%s",p[i].desc);
+        fscanf(fp,"%s",p[i].weight);
+        fscanf(fp,"%d",p[i].price);
+        fscanf(fp,"%d",p[i].DM);
+    }
+    fclose(fp);
+    printf("=>Load complete!\n");
+    return i;
 } 

@@ -64,6 +64,9 @@ int main(void){
 #endif
            }
         }
+        else if (menu == 5){
+            saveData(pr,index); 
+        }
     }
     printf("종료됨!\n");
     system("pause");

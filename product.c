@@ -80,6 +80,7 @@ void saveData(Product *p, int count){
     FILE *fp;
     fp = fopen("product.txt","wt");
 
+
     for (int i = 0; i <count; i++){
         if(p[i].price == -1) continue;
         printf("Name: %s\n",p[i].p_name);

@@ -16,6 +16,8 @@ int main(void){
 #ifdef DEBUG
     isdebug = 1;
 #endif
+    count = loadData(pr);
+    index = count;
     while (1){
         menu = selectMenu();
         if (menu == 0) break;

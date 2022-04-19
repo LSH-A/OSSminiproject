@@ -16,8 +16,7 @@ int main(void){
 #ifdef DEBUG
     isdebug = 1;
 #endif
-    count = loadData(pr);
-    index = count;
+
     while (1){
         menu = selectMenu();
         if (menu == 0) break;
@@ -68,6 +67,10 @@ int main(void){
         }
         else if (menu == 5){
             saveData(pr,index); 
+        }
+        else if (menu == 6){
+            count = loadData(pr);
+            index = count;
         }
     }
     printf("종료됨!\n");

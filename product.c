@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "product.h"
-
+#include <stdlib.h>
+#include <string.h>
 int selectMenu(){
     int menu;
     printf("\n*** Menu ***\n");
@@ -9,6 +10,7 @@ int selectMenu(){
     printf("3. Update Product\n");
     printf("4. Delete Product\n");
     printf("5. Save Data\n");
+    printf("6. Load Data\n");
     printf("0. End\n\n");
     printf("=> Select? ");
     scanf("%d", &menu);
@@ -75,34 +77,59 @@ int deleteProduct(Product *p){
     return 1;
 }
 
-void saveData(Product *p, int count){
+void saveData(Product *p[], int count){
     FILE *fp;
     fp = fopen("product.txt","wt");
 
     for (int i = 0; i <count; i++){
-        if(p[i].price == -1) continue;
-        printf("Name: %s\n",p[i].p_name);
-        printf("Description: %s\n",p[i].desc);
-        printf("Weight: %s\n",p[i].weight);
-        printf("Price: %d\n",p[i].price);
-        printf("Delivery Method: %d\n",p[i].DM);
+        if(p[i]== NULL) continue;
+        fprintf(fp,"%s\n",p[i]->p_name);
+        fprintf(fp,"%s\n",p[i]->desc);
+        fprintf(fp,"%s\n",p[i]->weight);
+        fprintf(fp,"%d\n",p[i]->price);
+        fprintf(fp,"%d\n",p[i]->DM);
     }
     fclose(fp);
-    printf("=> 저장됨! ");
+    printf("=> Saved! ");
 }
-int loadData(Product *p){
-    int count = 0, i = 0;
+int loadData(Product *p[]){
+    int i = 0;
+    char strToint[10];
     FILE *fp;
     fp = fopen("product.txt","rt");
     for(; i< 100; i++){
-        fscanf(fp,"%s",p[i].p_name);
-        if(feof(fp)) break;
-        fscanf(fp,"%s",p[i].desc);
-        fscanf(fp,"%s",p[i].weight);
-        fscanf(fp,"%d",p[i].price);
-        fscanf(fp,"%d",p[i].DM);
+        if(feof(fp)){
+            free(p[i-1]); // 쓰레기 struct가 만들어져서 제거
+            break;
+        } 
+        p[i] =(Product *)malloc(sizeof(Product));
+        fgets(p[i]->p_name,20,fp);
+        p[i]->p_name[strlen(p[i]->p_name) - 1] = '\0';
+       // fscanf(fp,"%s",p[i]->p_name);
+        fgets(p[i]->desc,100,fp);
+        p[i]->desc[strlen(p[i]->desc) - 1] = '\0';
+        //fscanf(fp,"%[^\n]s",p[i]->desc);
+        fgets(p[i]->weight,20,fp);
+        p[i]->weight[strlen(p[i]->weight) - 1] = '\0';
+       // fscanf(fp,"%s",p[i]->weight);
+        fgets(strToint,10,fp);
+        strToint[strlen(strToint) - 1] = '\0';
+        p[i]->price = atoi(strToint);
+        fgets(strToint,10,fp);
+        strToint[strlen(strToint) - 1] = '\0';
+        p[i]->DM = atoi(strToint);
+       
     }
     fclose(fp);
     printf("=>Load complete!\n");
-    return i;
-} 
+    return i-1; // 쓰레기 struct카운트 x
+} /*
+void searchName(Product *p,int count){
+    int scnt = 0;
+    char search[20];
+
+    print("Searching name?");
+    sacnf("%s",search);
+    
+
+}*/

@@ -13,7 +13,7 @@ int selectMenu(){
     printf("6. Load Data\n");
     printf("7. Search By Product Name\n");
     printf("8. Search By Product Weight\n");
-    printf("8. Search By Product Weight\n");
+    printf("8. Search By Product Description\n");
     printf("0. End\n\n");
     printf("=> Select? ");
     scanf("%d", &menu);
@@ -155,6 +155,24 @@ void searchWeight(Product *p[],int count){
         if(p[i] == NULL) continue;
         if(atoi(p[i]->weight) >= weight){
             printf("%d\n",atoi(p[i]->weight));
+            scnt++;
+            printf("\nSearched Product %d\n",scnt);
+            readProduct(*p[i]);
+            
+        }
+    }
+   if(scnt == 0) printf("=> No searched data!\n");
+
+}
+void searchDesc(Product *p[],int count){
+    int scnt = 0;
+    char search[100];
+
+    printf("Searching Description word?");
+    scanf("%s",search);
+    for(int i =0; i < count; i++){
+        if(p[i] == NULL) continue;
+        if(strstr(p[i]->desc,search)){
             scnt++;
             printf("\nSearched Product %d\n",scnt);
             readProduct(*p[i]);

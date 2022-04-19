@@ -13,7 +13,7 @@ int selectMenu(){
     printf("6. Load Data\n");
     printf("7. Search By Product Name\n");
     printf("8. Search By Product Weight\n");
-    printf("8. Search By Product Description\n");
+    printf("9. Search By Product Description\n");
     printf("0. End\n\n");
     printf("=> Select? ");
     scanf("%d", &menu);

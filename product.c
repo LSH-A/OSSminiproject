@@ -12,6 +12,8 @@ int selectMenu(){
     printf("5. Save Data\n");
     printf("6. Load Data\n");
     printf("7. Search By Product Name\n");
+    printf("8. Search By Product Weight\n");
+    printf("8. Search By Product Weight\n");
     printf("0. End\n\n");
     printf("=> Select? ");
     scanf("%d", &menu);
@@ -134,6 +136,25 @@ void searchName(Product *p[],int count){
     for(int i =0; i < count; i++){
         if(p[i] == NULL) continue;
         if(strstr(p[i]->p_name,search)){
+            scnt++;
+            printf("\nSearched Product %d\n",scnt);
+            readProduct(*p[i]);
+            
+        }
+    }
+   if(scnt == 0) printf("=> No searched data!\n");
+
+}
+void searchWeight(Product *p[],int count){
+    int scnt = 0;
+    int weight;
+
+    printf("입력한 무게보다 같거나 무거운 Product 검색(무게는 g이라생각)");
+    scanf("%d",&weight);
+    for(int i =0; i < count; i++){
+        if(p[i] == NULL) continue;
+        if(atoi(p[i]->weight) >= weight){
+            printf("%d\n",atoi(p[i]->weight));
             scnt++;
             printf("\nSearched Product %d\n",scnt);
             readProduct(*p[i]);

@@ -75,6 +75,9 @@ int main(void){
         else if (menu == 7){
             searchName(pr,count);
         }
+        else if (menu == 8){
+            searchWeight(pr,count);
+        }
     }
     printf("종료됨!\n");
     system("pause");

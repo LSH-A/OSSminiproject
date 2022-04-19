@@ -72,6 +72,9 @@ int main(void){
             count = loadData(pr);
             index = count;
         }
+        else if (menu == 7){
+            searchName(pr,count);
+        }
     }
     printf("종료됨!\n");
     system("pause");

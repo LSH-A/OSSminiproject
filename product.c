@@ -11,6 +11,7 @@ int selectMenu(){
     printf("4. Delete Product\n");
     printf("5. Save Data\n");
     printf("6. Load Data\n");
+    printf("7. Search By Product Name\n");
     printf("0. End\n\n");
     printf("=> Select? ");
     scanf("%d", &menu);
@@ -123,13 +124,22 @@ int loadData(Product *p[]){
     fclose(fp);
     printf("=>Load complete!\n");
     return i-1; // 쓰레기 struct카운트 x
-} /*
-void searchName(Product *p,int count){
+} 
+void searchName(Product *p[],int count){
     int scnt = 0;
     char search[20];
 
-    print("Searching name?");
-    sacnf("%s",search);
-    
+    printf("Searching name?");
+    scanf("%s",search);
+    for(int i =0; i < count; i++){
+        if(p[i] == NULL) continue;
+        if(strstr(p[i]->p_name,search)){
+            scnt++;
+            printf("\nSearched Product %d\n",scnt);
+            readProduct(*p[i]);
+            
+        }
+    }
+   if(scnt == 0) printf("=> No searched data!\n");
 
-}*/
+}
